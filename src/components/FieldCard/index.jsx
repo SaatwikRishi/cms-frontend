@@ -22,13 +22,12 @@ export default function FieldCard ({ field }) {
     })
   }
 
-  const handleFieldEdit = (contentInput) => {
+  const handleFieldEdit = async (contentInput) => {
     try {
       if (contentInput.length === 0) return
-      makeRequest(EDIT_FIELD(field.id, contentInput)).then((response) => {
-        setFieldName(response.data.name)
-        setDialogOpen(false)
-      })
+      const response = await makeRequest(EDIT_FIELD(field.id, contentInput))
+      setFieldName(response.data.name)
+      setDialogOpen(false)
     } catch (error) {
       enableSnackBar(error.message)
     }
@@ -57,8 +56,12 @@ export default function FieldCard ({ field }) {
           <p className="text-gray-500">{'Text'}</p>
         </div>
         <div className=" flex gap-x-5 grow justify-end px-[4%] items-center">
-          <FontAwesomeIcon onClick={() => setDialogOpen(true)} icon={faPen} />
-          <FontAwesomeIcon icon={faTrash} onClick={handleFieldDelete} />
+          <FontAwesomeIcon
+          data-testid='edit-field'
+          onClick={() => setDialogOpen(true)} icon={faPen} />
+          <FontAwesomeIcon
+          data-testid = 'delete-field'
+          icon={faTrash} onClick={handleFieldDelete} />
         </div>
       </div>
     </>

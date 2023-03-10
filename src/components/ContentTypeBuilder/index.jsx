@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classNames from 'classnames'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { DataContext } from '../../context/DataContext'
 import { ADD_COLLECTION } from '../../utils/constants'
 import { makeRequest } from '../../utils/makeRequest'
@@ -10,24 +10,29 @@ import TypeButton from '../TypeButton'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import screenText from '../../screenText'
 export default function ContentTypeBuilder () {
-  const { collections, setCollections, enableSnackBar } = useContext(DataContext)
+  const { collections, setCollections, enableSnackBar, getCollections } =
+    useContext(DataContext)
   const [dialogOpem, setDialogOpen] = React.useState(false)
   const [currentContentType, setCurrentContentType] = React.useState(null)
 
   const handleNewContentType = (contentInput) => {
     try {
       if (contentInput.length > 0) {
-        makeRequest(ADD_COLLECTION(contentInput)).then((data) => {
-          setCollections([...collections, data.data])
-          setDialogOpen(false)
-        }).catch((error) => {
-          enableSnackBar(error.message)
-        })
+        makeRequest(ADD_COLLECTION(contentInput))
+          .then((data) => {
+            setCollections([...collections, data.data])
+            setDialogOpen(false)
+          })
+          .catch((error) => {
+            enableSnackBar(error.message)
+          })
       }
-    } catch (error) {
-
-    }
+    } catch (error) {}
   }
+
+  useEffect(() => {
+    getCollections(true)
+  }, [])
 
   return (
     <>
@@ -41,13 +46,17 @@ export default function ContentTypeBuilder () {
 
       <div className="w-full h-screen flex flex-col">
         <div className="flex h-[8%] px-[3%] items-center ">
-          <p className="font-bold text-2xl">{screenText.contentTypes.contentTypes}</p>
+          <p className="font-bold text-2xl">
+            {screenText.contentTypes.contentTypes}
+          </p>
         </div>
         <div className="flex h-[92%]">
           {/* CONTENT TYPE INFO */}
           <div className="w-[30%] px-[3%] bg-customGrey h-full">
             <span className="flex items-center justify-between my-[10%]">
-              <p>{collections.length} {screenText.contentTypes.types}</p>
+              <p>
+                {collections.length} {screenText.contentTypes.types}
+              </p>
               <FontAwesomeIcon icon={faSearch} />
             </span>
             <TypeButton
@@ -56,6 +65,7 @@ export default function ContentTypeBuilder () {
             />
             {collections.map((collection, i) => (
               <button
+              data-testid='collection-btn'
                 onClick={() => {
                   setCurrentContentType(collection.id)
                 }}

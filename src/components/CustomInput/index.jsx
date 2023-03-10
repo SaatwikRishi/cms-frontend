@@ -5,7 +5,8 @@ export default function CustomInput ({ label, onChange, className, value, type }
   return (
     <div className="w-[100%] flex-col flex">
       <label className={classNames(className)} >{label}</label>
-      <input onChange={onChange} type={type} value={value} className="px-2 rounded-lg w-[inherit]  border-2 border-blue-400 h-10" />
+      <input data-testid="content-type-input"
+ onChange={onChange} type={type} value={value} className="px-2 rounded-lg w-[inherit]  border-2 border-blue-400 h-10" />
     </div>
   )
 }

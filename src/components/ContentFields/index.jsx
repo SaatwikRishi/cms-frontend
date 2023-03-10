@@ -17,7 +17,8 @@ import { useNavigate } from 'react-router-dom'
 import screenText from '../../screenText'
 
 export default function ContentFields ({ id }) {
-  const { collections, setCollections, enableSnackBar } = useContext(DataContext)
+  const { collections, setCollections, enableSnackBar } =
+    useContext(DataContext)
   const currentCollection = collections.find((e) => e.id === id)
   const [dialogOpen, setDialogOpen] = React.useState(false)
   const [fields, setFields] = React.useState([])
@@ -73,6 +74,7 @@ export default function ContentFields ({ id }) {
         <div className="flex items-center mt-10  gap-x-4">
           <h2 className="font-bold text-3xl ">{currentCollection.name}</h2>
           <FontAwesomeIcon
+            data-testid="edit-collection"
             icon={faEdit}
             size="lg"
             onClick={() => {
@@ -81,7 +83,9 @@ export default function ContentFields ({ id }) {
             }}
           />
         </div>
-        <h2 className="text-xl mb-5">{fields.length} {screenText.contentFields.fields}</h2>
+        <h2 className="text-xl mb-5">
+          {fields.length} {screenText.contentFields.fields}
+        </h2>
         <TypeButton
           onClick={() => {
             dialogChild.current = 'new'

@@ -4,6 +4,8 @@ import PropTypes from 'prop-types'
 export default function TypeButton ({ onClick, dialogText }) {
   return (
       <button
+      data-testid="add-field-btn"
+
         onClick={onClick}
         className="w-full bg-blue-50 h-14 flex items-center justify-center border-2 rounded-lg border-dotted border-customPurple text-customPurple font-bold"
       >

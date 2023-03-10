@@ -4,6 +4,8 @@ import PropTypes from 'prop-types'
 export default function CustomButton ({ children, className, onClick }) {
   return (
     <button
+    data-testid="custom-button"
+
     onClick={onClick}
     className= {classNames(
       className,

@@ -4,6 +4,10 @@ import { makeRequest } from '..'
 
 jest.mock('axios')
 describe('Tests for make request', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
+
   it('should return the data when the request is successful', async () => {
     const data = { data: 'data' }
     axios.mockResolvedValue(data)

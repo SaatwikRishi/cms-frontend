@@ -19,13 +19,12 @@ export default function ThemeState ({ children }) {
     }, 5000)
   }
 
-  const getCollections = async () => {
-    if ((!collections || collections.length === 0) && await validateUser()) {
+  const getCollections = async (force) => {
+    if (((!collections || collections.length === 0) && await validateUser()) || force) {
       makeRequest(GET_COLLECTIONS()).then((data) => {
         setCollections(data.data)
         setLoading(false)
       }).catch(() => {
-
       })
     } else {
       setLoading(false)

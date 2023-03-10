@@ -16,7 +16,11 @@ export default function DialogBox ({
   const [contentInput, setContentInput] = React.useState('')
   if (!open) return <></>
   return (
-    <dialog className=" rounded-lg p-10 bg-white absolute my-[10%] flex flex-col justify-item z-10">
+    <dialog
+
+    data-testid="dialog-box"
+
+    className=" rounded-lg p-10 bg-white absolute my-[10%] flex flex-col justify-item z-10">
       <>
         <h1 className="font-bold text-xl mb-10">
           {title ?? 'Create a new content type'}
@@ -32,6 +36,7 @@ export default function DialogBox ({
       </>
       <div className="flex justify-end gap-x-4 mt-10">
         <button
+
           onClick={() => {
             setDialogOpen(false)
           }}
