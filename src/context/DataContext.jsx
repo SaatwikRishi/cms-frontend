@@ -9,23 +9,23 @@ export const DataContext = React.createContext()
 export default function ThemeState ({ children }) {
   const [collections, setCollections] = React.useState([])
   const [loading, setLoading] = React.useState(true)
-  useEffect(() => {
-    const localFnForEffect = async () => {
-      if ((!collections || collections.length === 0) && await validateUser()) {
-        makeRequest(GET_COLLECTIONS()).then((data) => {
-          setCollections(data.data)
-          setLoading(false)
-        })
-      } else {
+  const getCollections = async () => {
+    if ((!collections || collections.length === 0) && await validateUser()) {
+      makeRequest(GET_COLLECTIONS()).then((data) => {
+        setCollections(data.data)
         setLoading(false)
-      }
+      })
+    } else {
+      setLoading(false)
     }
-    localFnForEffect()
+  }
+  useEffect(() => {
+    getCollections()
   }, [])
   if (loading) return (<div>Loading...</div>)
 
   return (
-    <DataContext.Provider value={{ collections, setCollections }}>
+    <DataContext.Provider value={{ collections, setCollections, getCollections }}>
       {children}
     </DataContext.Provider>
   )
