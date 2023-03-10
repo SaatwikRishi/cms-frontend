@@ -14,10 +14,15 @@ export default function ContentTypeBuilder () {
   const [currentContentType, setCurrentContentType] = React.useState(null)
 
   const handleNewContentType = (contentInput) => {
-    if (contentInput.length > 0) {
-      makeRequest(ADD_COLLECTION(contentInput)).then((data) => {
-        setCollections([...collections, data.data])
-      })
+    try {
+      if (contentInput.length > 0) {
+        makeRequest(ADD_COLLECTION(contentInput)).then((data) => {
+          setCollections([...collections, data.data])
+          setDialogOpen(false)
+        }).catch(() => {})
+      }
+    } catch (error) {
+
     }
   }
 

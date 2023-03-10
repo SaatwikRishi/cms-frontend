@@ -21,18 +21,21 @@ export default function ContentFields ({ id }) {
   const dialogChild = useRef('new')
   const navigate = useNavigate()
   const handleDialogSuccess = async (contentInput) => {
-    if (contentInput.length > 0) {
-      if (dialogChild.current === 'new') {
-        const data = await makeRequest(ADD_FIELD(id, contentInput))
-        setFields([...fields, data.data])
-      } else {
-        const data = await makeRequest(MODIFY_COLLECTION(id, contentInput))
-        setCollections([
-          ...collections.filter((collection) => collection.id !== id),
-          data.data
-        ])
+    try {
+      if (contentInput.length > 0) {
+        if (dialogChild.current === 'new') {
+          const data = await makeRequest(ADD_FIELD(id, contentInput))
+          setFields([...fields, data.data])
+        } else {
+          const data = await makeRequest(MODIFY_COLLECTION(id, contentInput))
+          setCollections([
+            ...collections.filter((collection) => collection.id !== id),
+            data.data
+          ])
+        }
+        setDialogOpen(false)
       }
-    }
+    } catch (error) {}
   }
 
   useEffect(() => {
@@ -90,5 +93,5 @@ export default function ContentFields ({ id }) {
 }
 
 ContentFields.propTypes = {
-  id: PropTypes.string
+  id: PropTypes.number
 }

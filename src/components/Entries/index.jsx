@@ -33,7 +33,6 @@ export default function Entries ({ currentCollection }) {
 
   const deleteEntry = async (id) => {
     makeRequest(DELETE_ENTRY(id)).then((e) => {
-      console.log(id)
       const newData = updateEntries('delete', id, entries)
       setEntries(newData)
     })

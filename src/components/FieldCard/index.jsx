@@ -19,10 +19,15 @@ export default function FieldCard ({ field }) {
   }
 
   const handleFieldEdit = (contentInput) => {
-    if (contentInput.length === 0) return
-    makeRequest(EDIT_FIELD(field.id, contentInput)).then((response) => {
-      setFieldName(response.data.name)
-    })
+    try {
+      if (contentInput.length === 0) return
+      makeRequest(EDIT_FIELD(field.id, contentInput)).then((response) => {
+        setFieldName(response.data.name)
+        setDialogOpen(false)
+      })
+    } catch (error) {
+
+    }
   }
   if (isDeleted) return <></>
 
