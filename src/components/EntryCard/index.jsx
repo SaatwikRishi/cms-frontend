@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 
 export default function EntryBox ({ entry, deleteEntry, index, fieldEntries, setNewEntryBox, setEditOptions }) {
   return <div
-    className="rounded-lg w-full h-14 flex mb-4 bg-white"
+    className="rounded-lg w-full h-14 flex mb-4 bg-white overflow-visible"
   >
     <div className="w-[50px] h-full flex items-center justify-center">
       {index + 1}
@@ -18,7 +18,7 @@ export default function EntryBox ({ entry, deleteEntry, index, fieldEntries, set
         </h1>
       ))}
     </div>
-    <div className="flex justify-center items-center w-[10%] gap-x-5 overflow-scroll">
+    <div className="flex justify-evenly items-center w-[20%] min-w-[100px]  gap-x-5 overflow-scroll">
       <FontAwesomeIcon
       icon={faEdit}
       onClick={() => {

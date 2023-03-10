@@ -92,7 +92,7 @@ export default function Entries ({ currentCollection }) {
               {screenText.contentEntries.addNewEntry}
             </button>
           </div>
-          <div className='overflow-scroll '>
+          <div className=''>
             {' '}
             {entries.length > 0 && (
               <div className="flex">
@@ -110,7 +110,7 @@ export default function Entries ({ currentCollection }) {
                   })}
                 </div>
 
-                <div className="w-[10%] justify-center flex ">
+                <div className="w-[20%] justify-center flex ">
                   {screenText.contentEntries.actions}
                 </div>
               </div>
