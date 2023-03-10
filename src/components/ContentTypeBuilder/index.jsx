@@ -9,7 +9,7 @@ import DialogBox from '../DialogBox'
 import TypeButton from '../TypeButton'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 export default function ContentTypeBuilder () {
-  const { collections, setCollections } = useContext(DataContext)
+  const { collections, setCollections, enableSnackBar } = useContext(DataContext)
   const [dialogOpem, setDialogOpen] = React.useState(false)
   const [currentContentType, setCurrentContentType] = React.useState(null)
 
@@ -19,7 +19,9 @@ export default function ContentTypeBuilder () {
         makeRequest(ADD_COLLECTION(contentInput)).then((data) => {
           setCollections([...collections, data.data])
           setDialogOpen(false)
-        }).catch(() => {})
+        }).catch((error) => {
+          enableSnackBar(error.message)
+        })
       }
     } catch (error) {
 

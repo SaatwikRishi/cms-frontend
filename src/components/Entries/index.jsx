@@ -22,7 +22,7 @@ export default function Entries ({ currentCollection }) {
     entry: {}
   })
 
-  const { collections } = useContext(DataContext)
+  const { collections, enableSnackBar } = useContext(DataContext)
 
   const collectionName =
     collections.length > 0
@@ -35,6 +35,8 @@ export default function Entries ({ currentCollection }) {
     makeRequest(DELETE_ENTRY(id)).then((e) => {
       const newData = updateEntries('delete', id, entries)
       setEntries(newData)
+    }).catch(error => {
+      enableSnackBar(error.message)
     })
   }
   const updatEntry = (type, data) => {

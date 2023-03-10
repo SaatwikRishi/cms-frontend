@@ -6,6 +6,7 @@ import { DataContext } from '../../context/DataContext'
 import DialogBox from '../DialogBox'
 import {
   ADD_FIELD,
+  ERROR_ROUTE,
   GET_FIELDS,
   MODIFY_COLLECTION
 } from '../../utils/constants'
@@ -13,8 +14,9 @@ import { makeRequest } from '../../utils/makeRequest'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from 'react-router-dom'
+
 export default function ContentFields ({ id }) {
-  const { collections, setCollections } = useContext(DataContext)
+  const { collections, setCollections, enableSnackBar } = useContext(DataContext)
   const currentCollection = collections.find((e) => e.id === id)
   const [dialogOpen, setDialogOpen] = React.useState(false)
   const [fields, setFields] = React.useState([])
@@ -35,7 +37,9 @@ export default function ContentFields ({ id }) {
         }
         setDialogOpen(false)
       }
-    } catch (error) {}
+    } catch (error) {
+      enableSnackBar(error.message)
+    }
   }
 
   useEffect(() => {
@@ -44,7 +48,7 @@ export default function ContentFields ({ id }) {
         setFields(data.data)
       })
       .catch(() => {
-        navigate('/error/')
+        navigate(ERROR_ROUTE)
       })
   }, [id])
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faPen } from '@fortawesome/free-solid-svg-icons'
@@ -6,15 +6,19 @@ import { makeRequest } from '../../utils/makeRequest'
 import DialogBox from '../DialogBox'
 import { DELETE_FIELD, EDIT_FIELD } from '../../utils/constants'
 import classNames from 'classnames'
+import { DataContext } from '../../context/DataContext'
 
 export default function FieldCard ({ field }) {
   const [fieldName, setFieldName] = React.useState(field.name)
   const [isDeleted, setDeleted] = React.useState(false)
   const [dialogOpen, setDialogOpen] = React.useState(false)
+  const { enableSnackBar } = useContext(DataContext)
 
   const handleFieldDelete = () => {
     makeRequest(DELETE_FIELD(field.id)).then((response) => {
       setDeleted(true)
+    }).catch((error) => {
+      enableSnackBar(error.message)
     })
   }
 
@@ -26,7 +30,7 @@ export default function FieldCard ({ field }) {
         setDialogOpen(false)
       })
     } catch (error) {
-
+      enableSnackBar(error.message)
     }
   }
   if (isDeleted) return <></>

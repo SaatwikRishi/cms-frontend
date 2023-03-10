@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import CustomButton from '../CustomButton'
 import CustomInput from '../CustomInput'
 import PropTypes from 'prop-types'
 import { makeRequest } from '../../utils/makeRequest'
 import { ADD_ENTRY, MODIFY_ENTRY } from '../../utils/constants'
+import { DataContext } from '../../context/DataContext'
 
 export default function FieldEntryBox ({
   id,
@@ -12,15 +13,20 @@ export default function FieldEntryBox ({
   updateEntries,
   setFieldBox
 }) {
+  const { enableSnackBar } = useContext(DataContext)
   const handleEntryBox = async () => {
-    if (editOptions.isEdit) {
-      await makeRequest(MODIFY_ENTRY(editOptions.entry.id, values))
-      updateEntries('modify', { id: editOptions.entry.id, json: values })
-    } else {
-      const response = await makeRequest(ADD_ENTRY(id, values))
-      updateEntries('add', response.data)
+    try {
+      if (editOptions.isEdit) {
+        await makeRequest(MODIFY_ENTRY(editOptions.entry.id, values))
+        updateEntries('modify', { id: editOptions.entry.id, json: values })
+      } else {
+        const response = await makeRequest(ADD_ENTRY(id, values))
+        updateEntries('add', response.data)
+      }
+      setFieldBox(false)
+    } catch (error) {
+      enableSnackBar(error.message)
     }
-    setFieldBox(false)
   }
 
   const currentFields = {}

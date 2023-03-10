@@ -1,15 +1,20 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import CustomButton from '../../components/CustomButton'
 import CustomInput from '../../components/CustomInput'
 import LoginImage from '../../assets/login/login-image.png'
 import screenText from '../../screenText'
 import authFunctions from './authFunctions'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { DASHBOARD_ROUTE, LOGIN_ROUTE, REGISTER_ROUTE } from '../../utils/constants'
+import {
+  DASHBOARD_ROUTE,
+  LOGIN_ROUTE,
+  REGISTER_ROUTE
+} from '../../utils/constants'
+import { DataContext } from '../../context/DataContext'
 export default function AuthPage () {
   const location = useLocation()
   const navigate = useNavigate()
-
+  const context = useContext(DataContext)
   const isRegistration = location.pathname === '/register'
 
   const [email, setEmail] = React.useState('')
@@ -31,6 +36,7 @@ export default function AuthPage () {
       await authFunctions.handleLoginClick(e, email, password)
       navigate(DASHBOARD_ROUTE)
     } catch (error) {
+      context.enableSnackBar(error.message)
     }
   }
 
@@ -58,7 +64,9 @@ export default function AuthPage () {
       <div className="lg:w-[45%] p-10 flex-col flex">
         <span className="h-[20%] flex justify-center items-end">
           <h2 className="font-bold text-white text-3xl">
-            {!isRegistration ? screenText.login.loginText : screenText.register.registerText }
+            {!isRegistration
+              ? screenText.login.loginText
+              : screenText.register.registerText}
           </h2>
         </span>
         <span className="w-[100%] lg:h-[80%]  flex-col  flex items-center justify-center">
@@ -75,16 +83,18 @@ export default function AuthPage () {
               label="Password"
               className="text-white"
             />
-            <CustomButton
-              onClick={handleButtonClick}
-            >
-              {!isRegistration ? screenText.login.loginButton : screenText.register.registerButton}
+            <CustomButton onClick={handleButtonClick}>
+              {!isRegistration
+                ? screenText.login.loginButton
+                : screenText.register.registerButton}
             </CustomButton>
           </form>
-         {!isRegistration && <button className="text-gray-400 underline">
-            {screenText.login.forgotPassword}
-          </button>}
-           <button
+          {!isRegistration && (
+            <button className="text-gray-400 underline">
+              {screenText.login.forgotPassword}
+            </button>
+          )}
+          <button
             onClick={() => {
               if (isRegistration) {
                 navigate(LOGIN_ROUTE)
@@ -92,9 +102,11 @@ export default function AuthPage () {
               }
               navigate(REGISTER_ROUTE)
             }}
-
-           className="text-gray-400 underline">
-            { !isRegistration ? screenText.login.loginLink : screenText.register.registerLink}
+            className="text-gray-400 underline"
+          >
+            {!isRegistration
+              ? screenText.login.loginLink
+              : screenText.register.registerLink}
           </button>
         </span>
       </div>

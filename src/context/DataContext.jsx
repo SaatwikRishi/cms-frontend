@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import validateUser from '../utils/common/validateUser.js'
-import { GET_COLLECTIONS } from '../utils/constants'
+import { ERROR_ROUTE, GET_COLLECTIONS } from '../utils/constants'
 import { makeRequest } from '../utils/makeRequest'
 
 export const DataContext = React.createContext()
@@ -9,11 +10,24 @@ export const DataContext = React.createContext()
 export default function ThemeState ({ children }) {
   const [collections, setCollections] = React.useState([])
   const [loading, setLoading] = React.useState(true)
+
+  const [snackBar, setSnackBar] = React.useState(false)
+
+  const enableSnackBar = (data) => {
+    setSnackBar(data)
+    setTimeout(() => {
+      setSnackBar(false)
+    }, 5000)
+  }
+  const navigate = useNavigate()
+
   const getCollections = async () => {
     if ((!collections || collections.length === 0) && await validateUser()) {
       makeRequest(GET_COLLECTIONS()).then((data) => {
         setCollections(data.data)
         setLoading(false)
+      }).catch(() => {
+        navigate(ERROR_ROUTE)
       })
     } else {
       setLoading(false)
@@ -22,11 +36,17 @@ export default function ThemeState ({ children }) {
   useEffect(() => {
     getCollections()
   }, [])
+
   if (loading) return (<div>Loading...</div>)
 
   return (
-    <DataContext.Provider value={{ collections, setCollections, getCollections }}>
+    <DataContext.Provider value={{ collections, setCollections, getCollections, enableSnackBar }}>
+    {snackBar && <div className='absolute z-20 top-10 left-10 px-6 py-4 bg-red-500 rounded-lg font-bold max-w-[300px]' >
+        {snackBar}
+      </div>}
       {children}
+
+=
     </DataContext.Provider>
   )
 }
