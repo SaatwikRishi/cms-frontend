@@ -18,7 +18,7 @@ export default function EntryBox ({ entry, deleteEntry, index, fieldEntries, set
         </h1>
       ))}
     </div>
-    <div className="flex justify-evenly items-center w-[20%] min-w-[100px]  gap-x-5 overflow-scroll">
+    <div className="flex justify-center items-center w-[20%] min-w-[100px]  gap-x-5 overflow-scroll">
       <FontAwesomeIcon
       icon={faEdit}
       onClick={() => {
