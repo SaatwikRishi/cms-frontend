@@ -11,10 +11,9 @@ export default function EntryBox ({ entry, deleteEntry, index, fieldEntries, set
     <div className="w-[50px] h-full flex items-center justify-center">
       {index + 1}
     </div>
-    <div className="grow overflow-scroll items-center flex">
+    <div className="grow  items-center flex">
       {fieldEntries.map((fieldEntry, index) => (
         <h1 className="w-[200px] text-center" key={Math.random()}>
-          {' '}
           {entry.json[fieldEntry[1].name]}
         </h1>
       ))}

@@ -33,12 +33,14 @@ export default function Entries ({ currentCollection }) {
       : 'NULL'
 
   const deleteEntry = async (id) => {
-    makeRequest(DELETE_ENTRY(id)).then((e) => {
-      const newData = updateEntries('delete', id, entries)
-      setEntries(newData)
-    }).catch(error => {
-      enableSnackBar(error.message)
-    })
+    makeRequest(DELETE_ENTRY(id))
+      .then((e) => {
+        const newData = updateEntries('delete', id, entries)
+        setEntries(newData)
+      })
+      .catch((error) => {
+        enableSnackBar(error.message)
+      })
   }
   const updatEntry = (type, data) => {
     const newData = updateEntries(type, data, entries)
@@ -70,14 +72,16 @@ export default function Entries ({ currentCollection }) {
   const fieldEntries = Object.entries(fields)
 
   return (
-    <div className="flex flex-col h-screen w-screen bg-blue-100">
+    <div className="flex flex-col h-screen w-screen bg-blue-100 overflow-scroll">
       <div className="h-[8%] px-[3%] flex items-center bg-white font-bold text-2xl">
         {collectionName}
       </div>
       <div className="px-[3%] mt-10 grow">
         <div>
           <div className="flex justify-between font-bold text-3xl mb-10">
-            <h1>{entries.length}{screenText.contentEntries.entriesFound}</h1>
+            <h1>
+              {entries.length} {screenText.contentEntries.entriesFound}
+            </h1>
             <button
               onClick={() => {
                 setEditOptions({ isEdit: false, entry: {} })
@@ -88,38 +92,43 @@ export default function Entries ({ currentCollection }) {
               {screenText.contentEntries.addNewEntry}
             </button>
           </div>
-          {entries.length > 0 && (
-            <div className="flex">
-              <h1 className="w-[50px] h-full text-center">ID</h1>
-              <div className="flex grow overflow-scroll">
-                {fieldEntries.map((field) => {
-                  return (
-                    <h1
-                      key={Math.random()}
-                      className=" mb-2 w-[200px] text-center"
-                    >
-                      {field[1].name}
-                    </h1>
-                  )
-                })}
-              </div>
+          <div className='overflow-scroll '>
+            {' '}
+            {entries.length > 0 && (
+              <div className="flex">
+                <h1 className="w-[50px] h-full text-center">ID</h1>
+                <div className="flex grow">
+                  {fieldEntries.map((field) => {
+                    return (
+                      <h1
+                        key={Math.random()}
+                        className=" mb-2 w-[200px] text-center"
+                      >
+                        {field[1].name}
+                      </h1>
+                    )
+                  })}
+                </div>
 
-              <div className="w-[10%] justify-center flex ">{screenText.contentEntries.actions}</div>
-            </div>
-          )}
-          {entries
-            .sort((a, b) => a.id - b.id)
-            .map((entry, index) => (
-              <EntryBox
-                key={index}
-                deleteEntry={deleteEntry}
-                entry={entry}
-                index={index}
-                fieldEntries={fieldEntries}
-                setEditOptions={setEditOptions}
-                setNewEntryBox={setNewEntryBox}
-              />
-            ))}
+                <div className="w-[10%] justify-center flex ">
+                  {screenText.contentEntries.actions}
+                </div>
+              </div>
+            )}
+            {entries
+              .sort((a, b) => a.id - b.id)
+              .map((entry, index) => (
+                <EntryBox
+                  key={index}
+                  deleteEntry={deleteEntry}
+                  entry={entry}
+                  index={index}
+                  fieldEntries={fieldEntries}
+                  setEditOptions={setEditOptions}
+                  setNewEntryBox={setNewEntryBox}
+                />
+              ))}
+          </div>
         </div>
       </div>
       {newEntryBox && (
@@ -127,7 +136,6 @@ export default function Entries ({ currentCollection }) {
           id={currentCollection}
           setFieldBox={setNewEntryBox}
           updateEntries={updatEntry}
-
           fields={fields}
           editOptions={editOptions}
         />

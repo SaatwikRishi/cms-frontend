@@ -23,7 +23,7 @@ export default function DialogBox ({
         </h1>
         <CustomInput
           onChange={(e) =>
-            e.target.value.length > 0 && setContentInput(e.target.value)
+            setContentInput(e.target.value)
           }
           value={contentInput}
           label={label ?? 'Name of the content type'}
