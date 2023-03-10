@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NotFoundPage should render when component is called 1`] = `
+<div>
+  <div
+    class="not-found-page"
+  >
+    <h1>
+      Page Not Found
+    </h1>
+  </div>
+</div>
+`;
