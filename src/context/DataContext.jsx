@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 import validateUser from '../utils/common/validateUser.js'
-import { ERROR_ROUTE, GET_COLLECTIONS } from '../utils/constants'
+import { GET_COLLECTIONS } from '../utils/constants'
 import { makeRequest } from '../utils/makeRequest'
 
 export const DataContext = React.createContext()
@@ -19,7 +18,6 @@ export default function ThemeState ({ children }) {
       setSnackBar(false)
     }, 5000)
   }
-  const navigate = useNavigate()
 
   const getCollections = async () => {
     if ((!collections || collections.length === 0) && await validateUser()) {
@@ -27,7 +25,7 @@ export default function ThemeState ({ children }) {
         setCollections(data.data)
         setLoading(false)
       }).catch(() => {
-        navigate(ERROR_ROUTE)
+
       })
     } else {
       setLoading(false)

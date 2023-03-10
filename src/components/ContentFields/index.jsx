@@ -14,6 +14,7 @@ import { makeRequest } from '../../utils/makeRequest'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from 'react-router-dom'
+import screenText from '../../screenText'
 
 export default function ContentFields ({ id }) {
   const { collections, setCollections, enableSnackBar } = useContext(DataContext)
@@ -80,7 +81,7 @@ export default function ContentFields ({ id }) {
             }}
           />
         </div>
-        <h2 className="text-xl mb-5">{fields.length} Fields</h2>
+        <h2 className="text-xl mb-5">{fields.length} {screenText.contentFields.fields}</h2>
         <TypeButton
           onClick={() => {
             dialogChild.current = 'new'

@@ -52,7 +52,7 @@ export default function AuthPage () {
         <div className="h-[30%]  flex items-center relative pl-[10%] z-10">
           <h2 className="text-3xl font-bold">
             {screenText.login.leftTitle1}
-            <br />
+
             <br /> {screenText.login.leftTitle2}
           </h2>
         </div>

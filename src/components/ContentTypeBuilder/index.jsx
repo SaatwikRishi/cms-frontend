@@ -8,6 +8,7 @@ import ContentFields from '../ContentFields'
 import DialogBox from '../DialogBox'
 import TypeButton from '../TypeButton'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import screenText from '../../screenText'
 export default function ContentTypeBuilder () {
   const { collections, setCollections, enableSnackBar } = useContext(DataContext)
   const [dialogOpem, setDialogOpen] = React.useState(false)
@@ -40,13 +41,13 @@ export default function ContentTypeBuilder () {
 
       <div className="w-full h-screen flex flex-col">
         <div className="flex h-[8%] px-[3%] items-center ">
-          <p className="font-bold text-2xl">Content Types</p>
+          <p className="font-bold text-2xl">{screenText.contentTypes.contentTypes}</p>
         </div>
         <div className="flex h-[92%]">
           {/* CONTENT TYPE INFO */}
           <div className="w-[30%] px-[3%] bg-customGrey h-full">
             <span className="flex items-center justify-between my-[10%]">
-              <p>{collections.length} types</p>
+              <p>{collections.length} {screenText.contentTypes.types}</p>
               <FontAwesomeIcon icon={faSearch} />
             </span>
             <TypeButton

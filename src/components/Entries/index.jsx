@@ -13,6 +13,7 @@ import PropTypes from 'prop-types'
 
 import { updateEntries } from './entryFunctions'
 import EntryBox from '../EntryCard'
+import screenText from '../../screenText'
 export default function Entries ({ currentCollection }) {
   const [entries, setEntries] = React.useState([])
   const [fields, setFields] = React.useState({})
@@ -76,7 +77,7 @@ export default function Entries ({ currentCollection }) {
       <div className="px-[3%] mt-10 grow">
         <div>
           <div className="flex justify-between font-bold text-3xl mb-10">
-            <h1>{entries.length} Entries Found</h1>
+            <h1>{entries.length}{screenText.contentEntries.entriesFound}</h1>
             <button
               onClick={() => {
                 setEditOptions({ isEdit: false, entry: {} })
@@ -84,7 +85,7 @@ export default function Entries ({ currentCollection }) {
               }}
               className="text-2xl text-violet-500"
             >
-              Add a new Entry
+              {screenText.contentEntries.addNewEntry}
             </button>
           </div>
           {entries.length > 0 && (
@@ -103,7 +104,7 @@ export default function Entries ({ currentCollection }) {
                 })}
               </div>
 
-              <div className="w-[10%] justify-center flex ">Actions</div>
+              <div className="w-[10%] justify-center flex ">{screenText.contentEntries.actions}</div>
             </div>
           )}
           {entries

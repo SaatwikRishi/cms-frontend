@@ -11,6 +11,29 @@ const screenText = {
     registerText: 'Register your CMS+ account',
     registerButton: 'Register',
     registerLink: 'Already have an account? Login'
+  },
+  sideBar: {
+    title: 'CMS+',
+    collectionTypes: 'Collection Types',
+    typeBuilder: 'Content Type Builder'
+  },
+  contentFields: {
+    fields: 'fields'
+  },
+  contentTypes: {
+    contentTypes: 'Content Types',
+    types: 'types'
+  },
+  contentEntries: {
+    entriesFound: 'Entries Found',
+    addNewEntry: 'Add New Entry',
+    actions: 'Actions'
+  },
+  buttons: {
+    cancelButton: 'Cancel',
+    modifyButton: 'Modify',
+    addButton: 'Add',
+    createButton: 'Create'
   }
 }
 

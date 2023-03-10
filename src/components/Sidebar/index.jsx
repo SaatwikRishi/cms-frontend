@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import { DataContext } from '../../context/DataContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faCircle } from '@fortawesome/free-solid-svg-icons'
+import screenText from '../../screenText'
 export default function Sidebar ({ selectedIndex }) {
   const { collections } = useContext(DataContext)
   const navigate = useNavigate()
@@ -23,11 +24,11 @@ export default function Sidebar ({ selectedIndex }) {
   return (
     <div className="bg-loginDark w-[20%] flex flex-col h-screen">
       <div className="h-[8%] flex items-center px-[8%]  bg-customPurple">
-        <h2 className="text-white text-3xl font-bold">CMS+</h2>
+        <h2 className="text-white text-3xl font-bold">{screenText.sideBar.title}</h2>
       </div>
       <div className="max-h-[50%] mb-10 ">
         <span className="flex justify-between my-[8%]  px-[8%]">
-          <h1 className="font-bold text-gray-300 ">COLLECTION TYPES</h1>
+          <h1 className="font-bold text-gray-300 ">{screenText.sideBar.collectionTypes}</h1>
           <FontAwesomeIcon icon={faSearch} size={'xl'} color={'gray'} />
         </span>
         <div>
@@ -58,7 +59,7 @@ export default function Sidebar ({ selectedIndex }) {
           'px-[8%] py-2 text-gray-300 font-extrabold'
         )}
       >
-        CONTENT TYPE BUILDER
+        {screenText.sideBar.typeBuilder}
       </button>
     </div>
   )
