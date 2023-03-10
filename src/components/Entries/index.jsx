@@ -102,7 +102,7 @@ export default function Entries ({ currentCollection }) {
                     return (
                       <h1
                         key={Math.random()}
-                        className=" mb-2 w-[200px] text-center"
+                        className=" mb-2 w-[150px] text-center"
                       >
                         {field[1].name}
                       </h1>

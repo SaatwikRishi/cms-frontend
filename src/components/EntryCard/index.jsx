@@ -13,7 +13,7 @@ export default function EntryBox ({ entry, deleteEntry, index, fieldEntries, set
     </div>
     <div className="grow  items-center flex">
       {fieldEntries.map((fieldEntry, index) => (
-        <h1 className="w-[200px] text-center" key={Math.random()}>
+        <h1 className="w-[150px] text-center" key={Math.random()}>
           {entry.json[fieldEntry[1].name]}
         </h1>
       ))}
